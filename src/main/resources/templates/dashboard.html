@@ -61,6 +61,21 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.08);
     }
 
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+
     footer {
       text-align: center;
       margin-top: 40px;
@@ -99,6 +114,31 @@
     <p>Esta página muestra el resumen de los datos almacenados en Supabase.</p>
     <p>Los valores se cargan dinámicamente desde Spring Boot usando Thymeleaf.</p>
   </div>
+
+  <div class="seccion">
+    <h2>Listado de Cursos</h2>
+
+    <table>
+      <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Código</th>
+        <th>Créditos</th>
+        <th>Profesor</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr th:each="curso : ${listaCursos}">
+        <td th:text="${curso.nombre}"></td>
+        <td th:text="${curso.codigo}"></td>
+        <td th:text="${curso.creditos}"></td>
+        <td th:text="${curso.profesor != null ? curso.profesor.nombre : 'Sin asignar'}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
 </div>
 
 <footer>
