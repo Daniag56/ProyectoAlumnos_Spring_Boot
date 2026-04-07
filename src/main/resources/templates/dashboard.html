@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard Académico</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #1f4e79;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .contenedor {
+      width: 90%;
+      max-width: 1100px;
+      margin: 30px auto;
+    }
+
+    .tarjetas {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .tarjeta {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+      padding: 25px;
+      width: 250px;
+      text-align: center;
+    }
+
+    .tarjeta h2 {
+      margin: 0;
+      font-size: 22px;
+      color: #333;
+    }
+
+    .numero {
+      font-size: 42px;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #1f4e79;
+    }
+
+    .seccion {
+      margin-top: 40px;
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      padding: 20px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Dashboard Académico</h1>
+  <p>Resumen general de la aplicación de alumnos</p>
+</header>
+
+<div class="contenedor">
+  <div class="tarjetas">
+    <div class="tarjeta">
+      <h2>Alumnos</h2>
+      <div class="numero" th:text="${totalAlumnos}">0</div>
+    </div>
+
+    <div class="tarjeta">
+      <h2>Cursos</h2>
+      <div class="numero" th:text="${totalCursos}">0</div>
+    </div>
+
+    <div class="tarjeta">
+      <h2>Profesores</h2>
+      <div class="numero" th:text="${totalProfesores}">0</div>
+    </div>
+  </div>
+
+  <div class="seccion">
+    <h2>Información</h2>
+    <p>Esta página muestra el resumen de los datos almacenados en Supabase.</p>
+    <p>Los valores se cargan dinámicamente desde Spring Boot usando Thymeleaf.</p>
+  </div>
+</div>
+
+<footer>
+  Aplicación Spring Boot + Supabase
+</footer>
+
+</body>
+</html>
