@@ -82,6 +82,29 @@
       padding: 20px;
       color: #666;
     }
+
+    .btn {
+      padding: 6px 10px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .btn-edit {
+      background: #1f4e79;
+      color: white;
+    }
+
+    .btn-delete {
+      background: #b30000;
+      color: white;
+    }
+
+    .btn-add {
+      background: #2e7d32;
+      color: white;
+    }
+
   </style>
 </head>
 <body>
@@ -125,6 +148,7 @@
         <th>Código</th>
         <th>Créditos</th>
         <th>Profesor</th>
+        <th>Acciones</th>
       </tr>
       </thead>
 
@@ -134,6 +158,32 @@
         <td th:text="${curso.codigo}"></td>
         <td th:text="${curso.creditos}"></td>
         <td th:text="${curso.profesor != null ? curso.profesor.nombre : 'Sin asignar'}"></td>
+
+        <td>
+
+          <!-- EDITAR PROFESOR -->
+          <a th:if="${curso.profesor != null}"
+             th:href="@{'/profesores/editar/' + ${curso.profesor.id}}"
+             class="btn btn-edit">
+            Editar
+          </a>
+
+          <!-- BORRAR PROFESOR -->
+          <a th:if="${curso.profesor != null}"
+             th:href="@{'/profesores/eliminar/' + ${curso.profesor.id}}"
+             class="btn btn-delete"
+             style="margin-left:5px;">
+            Borrar
+          </a>
+
+          <!-- AÑADIR PROFESOR -->
+          <a th:if="${curso.profesor == null}"
+             th:href="@{'/profesores/nuevo'}"
+             class="btn btn-add">
+            Añadir
+          </a>
+
+        </td>
       </tr>
       </tbody>
     </table>
@@ -147,3 +197,4 @@
 
 </body>
 </html>
+
