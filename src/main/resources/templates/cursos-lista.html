@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Listado de Cursos</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #1f4e79;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .contenedor {
+      width: 90%;
+      max-width: 1100px;
+      margin: 30px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+
+    th, td {
+      padding: 10px;
+    }
+
+    .btn {
+      padding: 6px 10px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .btn-back {
+      background: #1f4e79;
+      color: white;
+      margin-bottom: 15px;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Listado de Cursos</h1>
+</header>
+
+<div class="contenedor">
+
+  <a href="/dashboard" class="btn btn-back">Volver al Dashboard</a>
+
+  <table>
+    <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Código</th>
+      <th>Créditos</th>
+      <th>Profesor</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="c : ${listaCursos}">
+      <td th:text="${c.nombre}"></td>
+      <td th:text="${c.codigo}"></td>
+      <td th:text="${c.creditos}"></td>
+      <td th:text="${c.profesor != null ? c.profesor.nombre : 'Sin asignar'}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>
+
+</body>
+</html>

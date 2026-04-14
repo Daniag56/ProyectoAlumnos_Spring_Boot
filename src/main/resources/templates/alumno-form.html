@@ -2,33 +2,116 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Nuevo Alumno</title>
+    <title>Formulario Alumno</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .contenedor {
+            width: 90%;
+            max-width: 600px;
+            margin: 40px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1f4e79;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background: #1f4e79;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #163a5c;
+        }
+    </style>
 </head>
 <body>
 
-<h1>Registrar Nuevo Alumno</h1>
+<div class="contenedor">
+    <h1 th:text="${alumno.id == null ? 'Nuevo Alumno' : 'Editar Alumno'}"></h1>
 
-<form th:action="@{/alumnos/guardar}" th:object="${alumno}" method="post">
+    <!-- FORMULARIO NUEVO -->
+    <form th:if="${alumno.id == null}"
+          th:action="@{/alumnos/guardar}"
+          th:object="${alumno}" method="post">
 
-    <label>Nombre:</label>
-    <input type="text" th:field="*{nombre}" required><br><br>
+        <label>Nombre:</label>
+        <input type="text" th:field="*{nombre}" required>
 
-    <label>Apellidos:</label>
-    <input type="text" th:field="*{apellidos}" required><br><br>
+        <label>Apellidos:</label>
+        <input type="text" th:field="*{apellidos}" required>
 
-    <label>Email:</label>
-    <input type="email" th:field="*{email}" required><br><br>
+        <label>Email:</label>
+        <input type="email" th:field="*{email}" required>
 
-    <label>Fecha de nacimiento:</label>
-    <input type="date" th:field="*{fechaNacimiento}"><br><br>
+        <label>Fecha de nacimiento:</label>
+        <input type="date" th:field="*{fechaNacimiento}">
 
-    <label>Curso:</label>
-    <select th:field="*{curso.id}">
-        <option th:each="c : ${cursos}" th:value="${c.id}" th:text="${c.nombre}"></option>
-    </select><br><br>
+        <label>Curso:</label>
+        <select th:field="*{curso.id}">
+            <option th:each="c : ${cursos}" th:value="${c.id}" th:text="${c.nombre}"></option>
+        </select>
 
-    <button type="submit">Guardar</button>
-</form>
+        <button type="submit">Guardar</button>
+    </form>
+
+    <!-- FORMULARIO EDITAR -->
+    <form th:if="${alumno.id != null}"
+          th:action="@{/alumnos/editar/{id}(id=${alumno.id})}"
+          th:object="${alumno}" method="post">
+
+        <label>Nombre:</label>
+        <input type="text" th:field="*{nombre}" required>
+
+        <label>Apellidos:</label>
+        <input type="text" th:field="*{apellidos}" required>
+
+        <label>Email:</label>
+        <input type="email" th:field="*{email}" required>
+
+        <label>Fecha de nacimiento:</label>
+        <input type="date" th:field="*{fechaNacimiento}">
+
+        <label>Curso:</label>
+        <select th:field="*{curso.id}">
+            <option th:each="c : ${cursos}" th:value="${c.id}" th:text="${c.nombre}"></option>
+        </select>
+
+        <button type="submit">Guardar Cambios</button>
+    </form>
+
+</div>
 
 </body>
 </html>

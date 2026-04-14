@@ -53,6 +53,20 @@
       color: #1f4e79;
     }
 
+    .btn {
+      padding: 10px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-block;
+      margin: 0 10px;
+    }
+
+    .btn-nav {
+      background: #1f4e79;
+      color: white;
+    }
+
     .seccion {
       margin-top: 40px;
       background: white;
@@ -61,50 +75,12 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.08);
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-
-    table, th, td {
-      border: 1px solid #ccc;
-    }
-
-    th, td {
-      padding: 10px;
-      text-align: left;
-    }
-
     footer {
       text-align: center;
       margin-top: 40px;
       padding: 20px;
       color: #666;
     }
-
-    .btn {
-      padding: 6px 10px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .btn-edit {
-      background: #1f4e79;
-      color: white;
-    }
-
-    .btn-delete {
-      background: #b30000;
-      color: white;
-    }
-
-    .btn-add {
-      background: #2e7d32;
-      color: white;
-    }
-
   </style>
 </head>
 <body>
@@ -115,6 +91,15 @@
 </header>
 
 <div class="contenedor">
+
+  <!-- BOTONES DE NAVEGACIÓN -->
+  <div style="text-align:center; margin-bottom: 30px;">
+    <a href="/profesores/lista" class="btn btn-nav">Listado de Profesores</a>
+    <a href="/alumnos/lista" class="btn btn-nav">Listado de Alumnos</a>
+    <a href="/cursos/lista" class="btn btn-nav">Listado de Cursos</a>
+  </div>
+
+  <!-- TARJETAS -->
   <div class="tarjetas">
     <div class="tarjeta">
       <h2>Alumnos</h2>
@@ -132,61 +117,11 @@
     </div>
   </div>
 
+  <!-- INFORMACIÓN -->
   <div class="seccion">
     <h2>Información</h2>
     <p>Esta página muestra el resumen de los datos almacenados en Supabase.</p>
     <p>Los valores se cargan dinámicamente desde Spring Boot usando Thymeleaf.</p>
-  </div>
-
-  <div class="seccion">
-    <h2>Listado de Cursos</h2>
-
-    <table>
-      <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>Código</th>
-        <th>Créditos</th>
-        <th>Profesor</th>
-        <th>Acciones</th>
-      </tr>
-      </thead>
-
-      <tbody>
-      <tr th:each="curso : ${listaCursos}">
-        <td th:text="${curso.nombre}"></td>
-        <td th:text="${curso.codigo}"></td>
-        <td th:text="${curso.creditos}"></td>
-        <td th:text="${curso.profesor != null ? curso.profesor.nombre : 'Sin asignar'}"></td>
-
-        <td>
-
-          <!-- EDITAR PROFESOR -->
-          <a th:if="${curso.profesor != null}"
-             th:href="@{'/profesores/editar/' + ${curso.profesor.id}}"
-             class="btn btn-edit">
-            Editar
-          </a>
-
-          <!-- BORRAR PROFESOR -->
-          <a th:if="${curso.profesor != null}"
-             th:href="@{'/profesores/eliminar/' + ${curso.profesor.id}}"
-             class="btn btn-delete"
-             style="margin-left:5px;">
-            Borrar
-          </a>
-
-          <!-- AÑADIR PROFESOR -->
-          <a th:if="${curso.profesor == null}"
-             th:href="@{'/profesores/nuevo'}"
-             class="btn btn-add">
-            Añadir
-          </a>
-
-        </td>
-      </tr>
-      </tbody>
-    </table>
   </div>
 
 </div>

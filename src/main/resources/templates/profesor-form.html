@@ -2,7 +2,8 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Editar Profesor</title>
+    <title>Formulario Profesor</title>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -58,9 +59,31 @@
 <body>
 
 <div class="contenedor">
-    <h1>Editar Profesor</h1>
+    <h1 th:text="${profesor.id == null ? 'Nuevo Profesor' : 'Editar Profesor'}"></h1>
 
-    <form th:action="@{'/profesores/editar/' + ${profesor.id}}" th:object="${profesor}" method="post">
+    <!-- FORMULARIO NUEVO -->
+    <form th:if="${profesor.id == null}"
+          th:action="@{/profesores/guardar}"
+          th:object="${profesor}" method="post">
+
+        <input type="hidden" name="cursoId" th:value="${cursoId}">
+
+        <label>Nombre:</label>
+        <input type="text" th:field="*{nombre}" required>
+
+        <label>Email:</label>
+        <input type="email" th:field="*{email}" required>
+
+        <label>Departamento:</label>
+        <input type="text" th:field="*{departamento}">
+
+        <button type="submit">Guardar</button>
+    </form>
+
+    <!-- FORMULARIO EDITAR -->
+    <form th:if="${profesor.id != null}"
+          th:action="@{/profesores/editar/{id}(id=${profesor.id})}"
+          th:object="${profesor}" method="post">
 
         <label>Nombre:</label>
         <input type="text" th:field="*{nombre}" required>
@@ -73,6 +96,7 @@
 
         <button type="submit">Guardar Cambios</button>
     </form>
+
 </div>
 
 </body>

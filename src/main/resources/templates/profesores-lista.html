@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de Profesores</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: #1f4e79;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .contenedor {
+            width: 90%;
+            max-width: 1100px;
+            margin: 30px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 10px;
+        }
+
+        .btn {
+            padding: 6px 10px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .btn-edit { background: #1f4e79; color: white; }
+        .btn-delete { background: #b30000; color: white; }
+        .btn-add { background: #2e7d32; color: white; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Listado de Profesores</h1>
+</header>
+
+<div class="contenedor">
+
+    <a href="/profesores/nuevo" class="btn btn-add">Añadir Profesor</a>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Departamento</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="p : ${listaProfesores}">
+            <td th:text="${p.nombre}"></td>
+            <td th:text="${p.email}"></td>
+            <td th:text="${p.departamento}"></td>
+
+            <td>
+                <a th:href="@{'/profesores/editar/' + ${p.id}}" class="btn btn-edit">Editar</a>
+                <a th:href="@{'/profesores/eliminar/' + ${p.id}}" class="btn btn-delete" style="margin-left:5px;">Borrar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>
