@@ -21,14 +21,14 @@ public class AlumnoWebController {
         this.cursoRepository = cursoRepository;
     }
 
-    // LISTADO
+
     @GetMapping("/lista")
     public String listaAlumnos(Model model) {
         model.addAttribute("listaAlumnos", alumnoRepository.findAll());
         return "alumnos-lista";
     }
 
-    // NUEVO ALUMNO
+
     @GetMapping("/nuevo")
     public String nuevoAlumno(Model model) {
         model.addAttribute("alumno", new Alumno());
@@ -39,9 +39,12 @@ public class AlumnoWebController {
     @PostMapping("/guardar")
     public String guardarAlumno(Alumno alumno) {
 
+
         if (alumno.getCurso() != null && alumno.getCurso().getId() != null) {
-            Curso curso = cursoRepository.findById(alumno.getCurso().getId()).orElse(null);
-            alumno.setCurso(curso);
+            Curso cursoReal = cursoRepository.findById(alumno.getCurso().getId()).orElse(null);
+            alumno.setCurso(cursoReal);
+        } else {
+            alumno.setCurso(null);
         }
 
         alumnoRepository.save(alumno);
@@ -68,9 +71,12 @@ public class AlumnoWebController {
             alumno.setEmail(alumnoActualizado.getEmail());
             alumno.setFechaNacimiento(alumnoActualizado.getFechaNacimiento());
 
+
             if (alumnoActualizado.getCurso() != null && alumnoActualizado.getCurso().getId() != null) {
-                Curso curso = cursoRepository.findById(alumnoActualizado.getCurso().getId()).orElse(null);
-                alumno.setCurso(curso);
+                Curso cursoReal = cursoRepository.findById(alumnoActualizado.getCurso().getId()).orElse(null);
+                alumno.setCurso(cursoReal);
+            } else {
+                alumno.setCurso(null);
             }
 
             alumnoRepository.save(alumno);
@@ -79,7 +85,7 @@ public class AlumnoWebController {
         return "redirect:/alumnos/lista";
     }
 
-    // ELIMINAR ALUMNO
+
     @GetMapping("/eliminar/{id}")
     public String eliminarAlumno(@PathVariable Long id) {
         alumnoRepository.deleteById(id);
